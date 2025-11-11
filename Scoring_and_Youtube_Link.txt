@@ -1,0 +1,70 @@
+Chấm điểm cho từng chức năng:
+ -Chức năng 1:
+  +Tính đúng đắn:
+  +Thời gian chạy: 
+  +Giao diện:
+  +Cấu trúc dữ liệu:
+  =>Số điểm: 
+
+ -Chức năng 2:
+  +Tính đúng đắn:
+  +Thời gian chạy: 
+  +Giao diện:
+  +Cấu trúc dữ liệu:
+  =>Số điểm:
+
+ -Chức năng 3:
+  +Tính đúng đắn:
+  +Thời gian chạy: 
+  +Giao diện:
+  +Cấu trúc dữ liệu:
+  =>Số điểm:
+
+ -Chức năng 4:
+  +Tính đúng đắn:
+  +Thời gian chạy: 
+  +Giao diện:
+  +Cấu trúc dữ liệu:
+  =>Số điểm:
+
+ -Chức năng 5:
+  +Tính đúng đắn:
+  +Thời gian chạy: 
+  +Giao diện:
+  +Cấu trúc dữ liệu:
+  =>Số điểm:
+
+ -Chức năng 6:
+  +Tính đúng đắn:
+  +Thời gian chạy: 
+  +Giao diện:
+  +Cấu trúc dữ liệu:
+  =>Số điểm:
+
+ -Chức năng 7:
+  +Tính đúng đắn:
+  +Thời gian chạy: 
+  +Giao diện:
+  +Cấu trúc dữ liệu:
+  =>Số điểm:
+
+ -Chức năng 8:
+  +Tính đúng đắn:
+  +Thời gian chạy: 
+  +Giao diện:
+  +Cấu trúc dữ liệu:
+  =>Số điểm:
+
+ -Chức năng 9:
+  +Tính đúng đắn:
+  +Thời gian chạy: 
+  +Giao diện:
+  +Cấu trúc dữ liệu:
+  =>Số điểm:
+
+ -Chức năng 10:
+  +Tính đúng đắn:
+  +Thời gian chạy: 
+  +Giao diện:
+  +Cấu trúc dữ liệu:
+  =>Số điểm:
