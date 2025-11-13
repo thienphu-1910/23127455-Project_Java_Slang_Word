@@ -1,5 +1,7 @@
 package slang;
 
-public class SlangEntry {
+public abstract class SlangEntry {
   
+  public abstract String getWord();
+  public abstract String toString();
 }
