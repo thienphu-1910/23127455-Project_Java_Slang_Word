@@ -1,10 +1,11 @@
 package slang;
+import java.util.ArrayList;
 
 public class SlangWord extends SlangEntry {
   private String word;
-  private String definition;
+  private ArrayList<String> definition;
 
-  public SlangWord(String word, String definition) {
+  public SlangWord(String word, ArrayList<String> definition) {
     this.word = word;
     this.definition = definition;
   }
@@ -15,7 +16,7 @@ public class SlangWord extends SlangEntry {
   }
 
   @Override
-  public String getDefinition() {
+  public ArrayList<String> getDefinitions() {
     return this.definition;
   }
 

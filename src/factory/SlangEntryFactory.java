@@ -1,8 +1,9 @@
 package factory;
+import java.util.ArrayList;
 import slang.SlangEntry;
 
 public abstract class SlangEntryFactory {
-  public abstract SlangEntry createSlangEntry(String word, String definition);
+  public abstract SlangEntry createSlangEntry(String word, ArrayList<String> definition);
 
   // some operations
 }
