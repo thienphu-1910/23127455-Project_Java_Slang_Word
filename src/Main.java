@@ -1,11 +1,11 @@
 import java.util.HashMap;
 
-import provider.SlangWordFileProvider;
+import database.SlangDatabase;
 
 public class Main {
   public static void main(String[] args) {
     String filePath = "./input/slang.txt";
-    SlangWordFileProvider provider = new SlangWordFileProvider(filePath);
+    SlangDatabase provider = new SlangDatabase(filePath);
     HashMap<String, String> slangwords = provider.importSlangWord();
 
     //Set<String> set = slangwords.keySet();
