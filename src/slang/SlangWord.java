@@ -9,15 +9,24 @@ public class SlangWord extends SlangEntry {
     this.word = word;
     this.definition = definition;
   }
-
+  
   @Override
   public String getWord() {
     return this.word;
   }
-
+  
   @Override
   public ArrayList<String> getDefinitions() {
     return this.definition;
+  }  
+
+  @Override
+  public void addDefinition(String definition, int position) {
+    if (position >= this.definition.size()) {
+      this.definition.add(definition);
+    } else if (position == -1) {
+      this.definition.add(position, definition);
+    }
   }
 
   @Override

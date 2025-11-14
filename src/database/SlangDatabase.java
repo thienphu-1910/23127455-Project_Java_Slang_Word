@@ -1,17 +1,17 @@
-package provider;
+package database;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.HashMap;
 //import java.util.HashSet;
-import java.util.Set;
 
-public class SlangWordFileProvider {
+public class SlangDatabase {
+  private final String defaultPath = "./input/slang.txt";
   private String filePath = "";
   private String regex = "`";
 
   // Define constructor
-  public SlangWordFileProvider(String filePath) {
+  public SlangDatabase(String filePath) {
     this.filePath = filePath;
   }
 
@@ -40,8 +40,8 @@ public class SlangWordFileProvider {
   }
 
   public static void main(String[] args) {
-    String filePath = "/input/slang.txt";
-    SlangWordFileProvider provider = new SlangWordFileProvider(filePath);
+    String filePath = "./input/slang.txt";
+    SlangDatabase provider = new SlangDatabase(filePath);
     HashMap<String, String> slangwords = provider.importSlangWord();
 
     //Set<String> set = slangwords.keySet();
