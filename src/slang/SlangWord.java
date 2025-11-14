@@ -2,9 +2,11 @@ package slang;
 
 public class SlangWord extends SlangEntry {
   private String word;
+  private String definition;
 
-  public SlangWord(String word) {
+  public SlangWord(String word, String definition) {
     this.word = word;
+    this.definition = definition;
   }
 
   @Override
@@ -13,7 +15,12 @@ public class SlangWord extends SlangEntry {
   }
 
   @Override
+  public String getDefinition() {
+    return this.definition;
+  }
+
+  @Override
   public String toString() {
-    return this.word;
+    return this.word + "`" + this.definition;
   }
 }

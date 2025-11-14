@@ -4,8 +4,8 @@ import slang.SlangWord;
 
 public class SlangWordFactory extends SlangEntryFactory {
   @Override
-  public SlangEntry createSlangEntry(String str) {
-    return new SlangWord(str);
+  public SlangEntry createSlangEntry(String word, String definition) {
+    return new SlangWord(word, definition);
   }
  
 }
