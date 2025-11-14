@@ -7,6 +7,7 @@ public class SlangWordDefinition extends SlangEntry {
     this.word = word;
   }
 
+  @Override
   public String getWord() {
     return this.word;
   }
