@@ -1,13 +1,18 @@
 package slang;
+
 import java.util.ArrayList;
+
+import utils.HeapSort;
+import utils.BinarySearch;
 
 public class SlangWord extends SlangEntry {
   private String word;
-  private ArrayList<String> definition;
+  private ArrayList<String> definition = new ArrayList<String>();
 
   public SlangWord(String word, ArrayList<String> definition) {
     this.word = word;
     this.definition = definition;
+    this.definition = HeapSort.heapSort(definition);
   }
 
   // Copy constructor
@@ -15,7 +20,7 @@ public class SlangWord extends SlangEntry {
     this.word = slang.getWord();
     this.definition = slang.getDefinitions();
   }
-  
+
   @Override
   public String getWord() {
     return this.word;
@@ -27,12 +32,26 @@ public class SlangWord extends SlangEntry {
   }  
 
   @Override
-  public void addDefinition(String definition, int position) {
+  public void overrideDefinition(String definition, int position) {
+    if (this.definition == null) return;
+
     if (position >= this.definition.size()) {
-      this.definition.add(definition);
-    } else if (position == -1) {
-      this.definition.add(position, definition);
+      position = 0;
     }
+    this.definition.add(position, definition);
+  }
+
+  @Override 
+  public void duplicateDefinition(String definition) {
+    if (this.definition == null) return;
+    this.definition.add(definition);
+  }
+
+  @Override
+  public void deleteDefinition(String definition) {
+    if (this.definition == null) return;
+    int position = BinarySearch.binarySearch(getDefinitions(), definition);
+    this.definition.remove(position);
   }
 
   @Override
