@@ -1,20 +1,20 @@
 package controller;
 
 import command.Command;
-import models.DataContainer;
-import models.SearchingContainer;
+import models.Glossary;
+import models.SearchSlangData;
 
 public class Controller {
-  private DataContainer dataContainer = new DataContainer();
-  private SearchingContainer searchingContainer = new SearchingContainer();
+  private Glossary dataContainer = new Glossary();
+  private SearchSlangData searchingContainer = new SearchSlangData();
 
   public Controller() {}
 
-  public DataContainer getDataContainer() {
-    return new DataContainer(this.dataContainer);
+  public Glossary getGlossary() {
+    return new Glossary(this.dataContainer);
   }
-  public SearchingContainer getSearchingContainer() {
-    return new SearchingContainer(this.searchingContainer);
+  public SearchSlangData getSearchSlangData() {
+    return new SearchSlangData(this.searchingContainer);
   }
 
   public void init() {

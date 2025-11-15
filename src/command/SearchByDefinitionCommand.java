@@ -13,8 +13,8 @@ public class SearchByDefinitionCommand extends Command {
 
   @Override
   public boolean execute() {
-    ArrayList<String> targetKeywordCopy = controller.getSearchingContainer().getTargetKeywordCopy();
-    HashMap<String, ArrayList<SlangEntry>> keywordMapCopy = controller.getDataContainer().getKeywordMapCopy();
+    ArrayList<String> targetKeywordCopy = controller.getSearchSlangData().getTargetKeywordCopy();
+    HashMap<String, ArrayList<SlangEntry>> keywordMapCopy = controller.getGlossary().getKeywordMapCopy();
     HashSet<SlangEntry> slangList = new HashSet<SlangEntry>();
 
     for (String target : targetKeywordCopy) {
@@ -33,7 +33,7 @@ public class SearchByDefinitionCommand extends Command {
         slangListArray.add(slang);
       }
 
-      controller.getSearchingContainer().setSlangListResult(slangListArray);
+      controller.getSearchSlangData().setSlangListResult(slangListArray);
     }
 
     return true;

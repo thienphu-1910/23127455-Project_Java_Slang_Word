@@ -12,12 +12,12 @@ public class SearchBySlangWordCommand extends Command {
 
   @Override
   public boolean execute() {
-    String targetSlang = controller.getSearchingContainer().getTargetSlangCopy();
-    HashMap<String, SlangEntry> slangMapCopy = controller.getDataContainer().getSlangMapCopy();
+    String targetSlang = controller.getSearchSlangData().getTargetSlangCopy();
+    HashMap<String, SlangEntry> slangMapCopy = controller.getGlossary().getSlangMapCopy();
     SlangEntry slang = slangMapCopy.get(targetSlang);
 
     if (slang != null) {
-      controller.getSearchingContainer().setSlangResult(slang);
+      controller.getSearchSlangData().setSlangResult(slang);
       return true;
     }
     
