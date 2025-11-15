@@ -2,13 +2,14 @@ package models;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 
 import slang.SlangEntry;
 import slang.SlangWord;
 
 public class Glossary {
   private HashMap<String, SlangEntry> slangMap;
-  private HashMap<String, ArrayList<SlangEntry>> keywordMap;
+  private HashMap<String, HashSet<SlangEntry>> keywordMap;
   private ArrayList<SlangEntry> slangWord;
 
   public Glossary() {}
@@ -23,8 +24,8 @@ public class Glossary {
   public HashMap<String, SlangEntry> getSlangMapCopy() {
     return new HashMap<String, SlangEntry>(this.slangMap);
   }
-  public HashMap<String, ArrayList<SlangEntry>> getKeywordMapCopy() {
-    return new HashMap<String, ArrayList<SlangEntry>>(this.keywordMap);
+  public HashMap<String, HashSet<SlangEntry>> getKeywordMapCopy() {
+    return new HashMap<String, HashSet<SlangEntry>>(this.keywordMap);
   }
   public ArrayList<SlangEntry> getSlangWordCopy() {
     return new ArrayList<SlangEntry>(this.slangWord);
@@ -34,14 +35,14 @@ public class Glossary {
   public void setSlangMap(HashMap<String, SlangEntry> slangMap) {
     this.slangMap = slangMap;
   }
-  public void setKeywordMap(HashMap<String, ArrayList<SlangEntry>> keywordMap) {
+  public void setKeywordMap(HashMap<String, HashSet<SlangEntry>> keywordMap) {
     this.keywordMap = keywordMap;
   }
   public void setSlangWord(ArrayList<SlangEntry> slangWord) {
     this.slangWord = slangWord;
   }
   public void setAll(HashMap<String, SlangEntry> slangMap,
-                     HashMap<String, ArrayList<SlangEntry>> keywordMap,
+                     HashMap<String, HashSet<SlangEntry>> keywordMap,
                      ArrayList<SlangEntry> slangWord) {
     this.setSlangMap(slangMap);                      
     this.setKeywordMap(keywordMap);
@@ -54,14 +55,14 @@ public class Glossary {
     String[] keyword = targetDefinition.split(regex);    
 
     for (String key : keyword) {
-      ArrayList<SlangEntry> refList = this.keywordMap.get(key);
-      if (refList != null) {
-        refList.add(targetSlang);
+      HashSet<SlangEntry> refSet = this.keywordMap.get(key);
+      if (refSet != null) {
+        refSet.add(targetSlang);
       }
-      else if (refList == null) {
-        ArrayList<SlangEntry> newRefList = new ArrayList<SlangEntry>();
-        newRefList.add(targetSlang);
-        this.keywordMap.put(key, newRefList);
+      else if (refSet == null) {
+        HashSet<SlangEntry> newRefSet = new HashSet<SlangEntry>();
+        newRefSet.add(targetSlang);
+        this.keywordMap.put(key, newRefSet);
       }
     }
   }
@@ -75,5 +76,12 @@ public class Glossary {
     this.slangMap.put(targetWord, addedSlang);
     this.slangWord.add(addedSlang);
     this.adjustKeywordReference(addedSlang, targetDefinition);
+  }
+  public void deleteSlangEntry(String targetWord) {
+    SlangEntry slang = this.slangMap.get(targetWord);
+    this.slangWord.remove(slang);
+    for (String keyword : keywordMap.keySet()) {
+      this.keywordMap.get(keyword).remove(slang);
+    }
   }
 }
