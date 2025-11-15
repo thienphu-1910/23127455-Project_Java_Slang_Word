@@ -10,6 +10,7 @@ public class SlangWord extends SlangEntry {
     this.definition = definition;
   }
 
+  // Copy constructor
   public SlangWord(SlangEntry slang) {
     this.word = slang.getWord();
     this.definition = slang.getDefinitions();
