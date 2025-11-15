@@ -38,12 +38,20 @@ public class SlangWord extends SlangEntry {
     if (position >= this.definition.size()) {
       position = 0;
     }
-    this.definition.add(position, definition);
+    this.definition.set(position, definition);
   }
 
   @Override 
   public void duplicateDefinition(String definition) {
     if (this.definition == null) return;
+    int size = this.definition.size();
+    // Enhance this loop
+    for (int i = 0; i < size; ++i) {
+      if (this.definition.get(i).compareTo(definition) > 0) {
+        this.definition.add(i, definition);
+        return;
+      }
+    }
     this.definition.add(definition);
   }
 
