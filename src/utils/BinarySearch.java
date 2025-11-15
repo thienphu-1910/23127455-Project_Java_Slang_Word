@@ -2,6 +2,7 @@ package utils;
 
 import java.util.ArrayList;
 
+// Ref: https://www.geeksforgeeks.org/dsa/binary-search/
 public class BinarySearch {
   public static int binarySearch(ArrayList<String> arr, String target) {
     int low = 0, high = arr.size() -1;
