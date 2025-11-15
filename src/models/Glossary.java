@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import slang.SlangEntry;
+import slang.SlangWord;
 
 public class Glossary {
   private HashMap<String, SlangEntry> slangMap;
@@ -46,6 +47,33 @@ public class Glossary {
     this.setKeywordMap(keywordMap);
     this.setSlangWord(slangWord);
   }
-
+  
   // Adjust data methods?
+  private void adjustKeywordReference(SlangEntry targetSlang, String targetDefinition) {
+    String regex = "[^A-Za-z0-9]+";
+    String[] keyword = targetDefinition.split(regex);    
+
+    for (String key : keyword) {
+      ArrayList<SlangEntry> refList = this.keywordMap.get(key);
+      if (refList != null) {
+        refList.add(targetSlang);
+      }
+      else if (refList == null) {
+        ArrayList<SlangEntry> newRefList = new ArrayList<SlangEntry>();
+        newRefList.add(targetSlang);
+        this.keywordMap.put(key, newRefList);
+      }
+    }
+  }
+  public SlangEntry accessSlangEntry(String targetWord) {
+    return this.slangMap.get(targetWord);
+  }
+  public void addSlangEntry(String targetWord, String targetDefinition) {
+    ArrayList<String> defList = new ArrayList<String>();
+    defList.add(targetDefinition);
+    SlangEntry addedSlang = new SlangWord(targetWord, defList);
+    this.slangMap.put(targetWord, addedSlang);
+    this.slangWord.add(addedSlang);
+    this.adjustKeywordReference(addedSlang, targetDefinition);
+  }
 }
