@@ -9,6 +9,11 @@ public class SlangWord extends SlangEntry {
     this.word = word;
     this.definition = definition;
   }
+
+  public SlangWord(SlangEntry slang) {
+    this.word = slang.getWord();
+    this.definition = slang.getDefinitions();
+  }
   
   @Override
   public String getWord() {
