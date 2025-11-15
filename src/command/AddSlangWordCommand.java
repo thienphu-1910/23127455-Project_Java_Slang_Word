@@ -1,39 +1,54 @@
 package command;
 
 import controller.Controller;
+import models.SlangData;
+import slang.SlangEntry;
 
 public class AddSlangWordCommand extends Command {
   public AddSlangWordCommand(Controller controller) {
     super(controller);
   }
 
+  private void overrideSlangWord(String word, String targetDefinition, String replacedDefinition) {    
+    SlangEntry slang = this.controller.getGlossary().accessSlangEntry(word);
+    if (slang == null) return;
+    
+    slang.overrideDefinition(targetDefinition, replacedDefinition);
+  }
+  private void duplicateSlangWord(String word, String definition) {
+    SlangEntry slang = this.controller.getGlossary().accessSlangEntry(word);
+    if (slang == null) return;
+
+    slang.duplicateDefinition(definition);
+  }
+
   // Add Condition Statement in this method
-  private void addSlangWord(String word, String definition, String mode, int position) {    
+  private void addSlangWord(String word, String targetDefinition, String mode, String replacedDefinition) {    
     if (mode.contentEquals("override")) {      
-      this.controller.getGlossary().accessSlangEntry(word).addDefinition(definition, position - 1);
+      this.overrideSlangWord(word, targetDefinition, replacedDefinition);
     } 
     else if (mode.contentEquals("duplicate")) {
-      position = -1;
-      this.controller.getGlossary().accessSlangEntry(word).addDefinition(definition, position);
+      this.duplicateSlangWord(word, targetDefinition);
     } 
     else if (mode.contentEquals("new")) {
-      this.controller.getGlossary().addSlangEntry(word, definition);
+      this.controller.getGlossary().addSlangEntry(word, targetDefinition);
     }
   }
 
   @Override
   public boolean execute() {
-    String addedWord = this.controller.getAddSlangData().getAddedWordCopy();
-    String addedDefinition = this.controller.getAddSlangData().getAddedDefinitionCopy();
+    SlangData data = this.controller.getAddSlangData();
+    String addedWord = data.getWordCopy();
+    String addedDefinition = data.getDefinitionCopy();
 
     boolean existed = this.isExisted(addedWord);
 
     String method = "new";
-    int position = -1;
+    String replacedDefinition = "";
     // Get user requirement method here:
 
     //
-    this.addSlangWord(addedWord, addedDefinition, method, position);
+    this.addSlangWord(addedWord, addedDefinition, method, replacedDefinition);
     
     return true;
   }

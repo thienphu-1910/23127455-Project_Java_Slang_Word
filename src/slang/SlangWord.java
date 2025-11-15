@@ -32,13 +32,11 @@ public class SlangWord extends SlangEntry {
   }  
 
   @Override
-  public void overrideDefinition(String definition, int position) {
+  public void overrideDefinition(String targetDefinition, String replacedDefinition) {
     if (this.definition == null) return;
 
-    if (position >= this.definition.size()) {
-      position = 0;
-    }
-    this.definition.set(position, definition);
+    int position = BinarySearch.binarySearch(this.definition, replacedDefinition);
+    this.definition.set(position, targetDefinition);
   }
 
   @Override 
