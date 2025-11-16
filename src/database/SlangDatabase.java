@@ -94,13 +94,13 @@ public class SlangDatabase {
         String key = dis.readUTF();
         int slangSetSize = dis.readInt();
         HashSet<SlangEntry> slangSet = new HashSet<SlangEntry>(slangSetSize);
-        for (int j = 0; j < slangSetSize; ++i) {
+        for (int j = 0; j < slangSetSize; ++j) {
           SlangEntry newEntry = loadSlangEntry(dis);
           if (newEntry != null) slangSet.add(newEntry);
         }
-        keywordMap.put(key, slangSet);
-        return keywordMap;
+        keywordMap.put(key, slangSet);        
       }
+      return keywordMap;
     }
     catch (IOException e) {
       e.printStackTrace();
