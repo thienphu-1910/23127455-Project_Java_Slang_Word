@@ -30,16 +30,22 @@ public class Glossary {
   public ArrayList<SlangEntry> getSlangWordCopy() {
     return new ArrayList<SlangEntry>(this.slangWord);
   }
+  public SlangWord getSlang(int index) {
+    return new SlangWord(this.slangWord.get(index));
+  }
+  public int getSlangListLength() {
+    return this.slangWord.size();
+  }
 
   // Setter
   public void setSlangMap(HashMap<String, SlangEntry> slangMap) {
-    this.slangMap = slangMap;
+    this.slangMap = new HashMap<String, SlangEntry>(slangMap);
   }
   public void setKeywordMap(HashMap<String, HashSet<SlangEntry>> keywordMap) {
-    this.keywordMap = keywordMap;
+    this.keywordMap = new HashMap<String, HashSet<SlangEntry>>(keywordMap);
   }
   public void setSlangWord(ArrayList<SlangEntry> slangWord) {
-    this.slangWord = slangWord;
+    this.slangWord = new ArrayList<SlangEntry>(slangWord);
   }
   public void setAll(HashMap<String, SlangEntry> slangMap,
                      HashMap<String, HashSet<SlangEntry>> keywordMap,
@@ -83,5 +89,7 @@ public class Glossary {
     for (String keyword : keywordMap.keySet()) {
       this.keywordMap.get(keyword).remove(slang);
     }
+    this.slangWord.remove(slang);
+    this.slangMap.remove(targetWord);
   }
 }
