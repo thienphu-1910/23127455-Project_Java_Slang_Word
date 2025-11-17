@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.io.IOException;
+import java.util.Collections;
 
 import controller.Controller;
 import slang.SlangEntry;
@@ -18,9 +19,10 @@ import slang.SlangWord;
 
 public class SlangDatabase {
   private final String defaultPath = "./input/slang.txt";  
-  private String fastStartupFilePath = "./input/slang_fast_startup_origin.bin";
-  private String workedDataFilePath = "./input/slang_save.bin";
-  private String regex = "`";
+  private final String fastStartupFilePath = "./input/slang_fast_startup_origin.bin";
+  private final String workedDataFilePath = "./input/slang_save.bin";
+  private final String regex = "`";
+  private final String definitionRegex = "[^A-Za-z0-9]+";
 
   // Define constructor
   public SlangDatabase() {}
@@ -32,7 +34,7 @@ public class SlangDatabase {
   }
 
   // Import data
-  public HashMap<String, String> importSlangWord() {
+  private HashMap<String, String> importSlangWord() {
     HashMap<String, String> slangwords = new HashMap<String, String>();
     try (BufferedReader br = new BufferedReader(new FileReader(this.defaultPath))) {
       String line;
@@ -47,6 +49,64 @@ public class SlangDatabase {
     }
 
     return slangwords;
+  }
+
+  private HashMap<String, SlangEntry> convertToSlangEntryHashMap(HashMap<String, String> rawData) {
+    HashMap<String, SlangEntry> slangMap = new HashMap<String, SlangEntry>();
+    for (String word : rawData.keySet()) {
+      if (slangMap.get(word) == null) {
+        ArrayList<String> defList = new ArrayList<String>();
+        defList.add(rawData.get(word));
+        SlangWord slang = new SlangWord(word, defList);
+        slangMap.put(word, slang);
+      }
+      else {
+        SlangEntry entry = slangMap.get(word);
+        entry.duplicateDefinition(rawData.get(word));
+      }
+    }
+
+    return slangMap;
+  }  
+
+  private HashMap<String, HashSet<SlangEntry>> convertToKeywordHashMap(HashMap<String, String> rawData, 
+                                                                       HashMap<String, SlangEntry> slangMap) {
+    HashMap<String, HashSet<SlangEntry>> keywordMap = new HashMap<String, HashSet<SlangEntry>>();
+    for (String word : rawData.keySet()) {
+      SlangEntry entry = slangMap.get(word);
+      String defintion = rawData.get(word);
+      String[] keywordArray = defintion.split(this.definitionRegex);
+      ArrayList<String> keywordList = new ArrayList<String>();
+      Collections.addAll(keywordList, keywordArray);
+
+      HashSet<String> keywordSet = new HashSet<String>();
+      keywordSet.addAll(keywordList);
+      for (String keyword : keywordSet) {
+        HashSet<SlangEntry> slangSet = keywordMap.get(keyword);
+        if (slangSet != null) {
+          slangSet.add(entry);
+        }
+        else {
+          slangSet = new HashSet<SlangEntry>();
+          slangSet.add(entry);
+          keywordMap.put(word, slangSet);
+        }
+      }
+    }
+    
+    return keywordMap;
+  }
+  
+  public void loadGlossary(Controller controller) {
+    HashMap<String, String> rawData = importSlangWord();
+    HashMap<String, SlangEntry> slangMap = convertToSlangEntryHashMap(rawData);
+    HashMap<String, HashSet<SlangEntry>> keywordMap = convertToKeywordHashMap(rawData, slangMap);
+    ArrayList<SlangEntry> slangWord = new ArrayList<SlangEntry>();
+    for (String word : slangMap.keySet()) {
+      slangWord.add(slangMap.get(word));
+    }
+
+    controller.setGlossary(slangMap, keywordMap, slangWord);
   }
 
   private SlangEntry loadSlangEntry(DataInputStream dis) {
@@ -233,6 +293,4 @@ public class SlangDatabase {
   public void saveWorkedData(Controller controller) {
     saveGlossary(controller, this.workedDataFilePath);
   }
-
-  
 }
